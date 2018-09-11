@@ -1,0 +1,22 @@
+<apex:page controller="vfclass2" rendered="true">
+  <apex:form >
+    <apex:pageBlock >
+     <!-- <apex:pageBlockTable value="{!tableRows}" var="row" rows="5">
+        <apex:column><apex:inputCheckbox value="{!row.isSelected}"/></apex:column>
+        <apex:column headerValue="Contact First Name"><apex:inputField value="{!row.theContact.firstname}"/></apex:column>
+        <apex:column headerValue="Contact Last Name"><apex:inputField value="{!row.theContact.lastname}"/></apex:column>
+        <apex:column headerValue="Account Name"><apex:inputField value="{!row.theAccount.name}"/></apex:column>
+      </apex:pageBlockTable>-->
+        <apex:pageBlockTable cellpadding="5" var="cx" value="{!tableRows}">
+        <!--<apex:column><apex:inputCheckbox  value="{!cx.isselected}"/></apex:column>-->
+        <apex:column value="{!cx.theContact.firstname}" headerValue="Contact firstname"/>   
+            <apex:column value="{!cx.theContact.lastname}" headerValue="contact lastname"/>
+        <apex:column value="{!cx.theAccount.name}" headerValue="Account Name" />
+        </apex:pageBlockTable>
+         <apex:pageBlock rendered="{!rendered}" title="Account Record Details">
+          <!-- <apex:pageBlockTable  cellpadding="5" var="cx" value="{!getrecords}">-->
+       
+        </apex:pageBlock>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

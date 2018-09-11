@@ -1,0 +1,5 @@
+<apex:page standardController="Opportunity" 
+     extensions="CloneOpp_Controller"
+     action="{!cloneOpportunity}">
+     <apex:pageMessages />
+</apex:page>

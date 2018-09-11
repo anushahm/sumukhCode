@@ -1,0 +1,44 @@
+<apex:page controller="records">
+    <apex:form >
+     
+           <apex:pageBlock title="Records of Multiple Objects" >
+          <apex:pageBlockTable cellspacing="5px" columnsWidth="300px,300px" value="{!con}" var="c">
+              <apex:column value="{!c.name}" headervalue="contactname"/>
+              <apex:column value="{!c.CreatedById}" headervalue="createdBy"/>'
+              <apex:column value="{!c.AccountId}" headervalue="AcontName"/>
+              <!--<apex:column value="{!c.CleanStatus}" headervalue="CleanStatus"/>-->
+
+             <!-- <apex:column value="{!c.Id}" headervalue="ID"/>-->
+		 </apex:pageBlockTable>
+           <apex:pageBlockTable cellspacing="5px" columnsWidth="300px,300px"  value="{!acc}" var="a">
+              <apex:column value="{!a.name}" headervalue="Accountname"/>
+               <apex:column value="{!a.AccountNumber}" headervalue="accountNo"/>
+               <apex:column value="{!a.phone}" headervalue="phone"/>
+              <!-- <apex:column value="{!a.CleanStatus}" headervalue="CleanStatus"/>-->
+ 			  <!-- <apex:column value="{!a.id}" headervalue="id"/>-->
+          </apex:pageBlockTable>
+                  
+           <apex:pageBlockTable cellspacing="5px" columnsWidth="300px,300px"  value="{!opp}" var="o">
+              <apex:column value="{!o.name}" headervalue="Ooportunityname"/>
+               <apex:column value="{!o.Amount}" headervalue="Amount"/>
+               <apex:column value="{!o.LastModifiedById}" headervalue="LastModifiedById"/>
+               <!--<apex:column value="{!o.id}" headervalue="id"/>-->
+           </apex:pageBlockTable>
+          
+           <apex:pageBlockTable cellspacing="5px"  columnsWidth="300px,300px" value="{!led}" var="l">
+              <apex:column value="{!l.name}" headervalue="leadname"/>
+               <apex:column value="{!l.Company}" headervalue="Company"/>
+                <apex:column value="{!l.CleanStatus}" headervalue="CleanStatus"/>
+               <!--<apex:column value="{!l.id}" headervalue="id"/>-->
+           </apex:pageBlockTable>
+         
+           <apex:pageBlockTable cellspacing="5px" columnsWidth="300px,300px" value="{!cs}" var="c">
+               <apex:column value="{!c.Status}" headervalue="case status"/>
+               <apex:column value="{!c.Type}" headervalue="case Type"/>
+               <apex:column value="{!c.CaseNumber}" headervalue="case CaseNumber"/>
+              <!--<apex:column value="{!c.id}" headervalue="case id"/>-->
+           </apex:pageBlockTable>
+             
+        </apex:pageBlock>
+</apex:form>
+</apex:page>

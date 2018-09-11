@@ -1,0 +1,6 @@
+<apex:page standardController="Opportunity" >
+    <apex:form >
+        
+    </apex:form>
+
+</apex:page>

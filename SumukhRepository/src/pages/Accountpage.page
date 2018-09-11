@@ -1,0 +1,34 @@
+<apex:page Controller="AccountClass" >
+    <apex:form >
+       
+    	<apex:pageBlock Title="Account Record Update">
+   			<apex:pageBlockButtons >
+                 <apex:commandButton action="{!save}" value="save" onclick="alert('record suceessfully inserted')"/>
+                <apex:commandButton action="{!Accountlist}" value="showtable" reRender="panel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="account page details" columns="2">
+            	<apex:inputField value="{!acc.Name}"/>
+                <apex:inputField value="{!acc.AccountNumber}"/>
+                <apex:inputField value="{!acc.Phone}"/>
+                <apex:inputField value="{!acc.Site}"/>
+                <apex:inputField value="{!acc.Match_Billing_Address__c}"/>
+                <apex:inputField value="{!acc.CleanStatus}"/>
+                <apex:inputField value="{!acc.Description}"/>
+                <apex:inputField value="{!acc.OwnerId}"/>
+                <apex:inputField value="{!acc.NumberofLocations__c}"/>
+            </apex:pageBlockSection>
+           </apex:pageBlock>
+            <apex:pageBlock >
+            <apex:outputPanel id="panel" > 
+       			 <apex:pageBlock rendered="{!rendered}" title="Account Record Details">
+        				<apex:pageBlockTable value="{!accounts}" var="a"  rows="4" >
+       						 <apex:column value="{!a.name}"/>
+                             <apex:column value="{!a.AccountNumber}"/>
+                             <apex:column value="{!a.Phone}"/>
+                             <apex:column value="{!a.CreatedDate}"/>
+                       </apex:pageBlockTable>
+      			 </apex:pageBlock>
+          </apex:outputPanel>
+                </apex:pageBlock>
+     </apex:form>
+</apex:page>

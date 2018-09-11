@@ -1,0 +1,202 @@
+<aura:component controller="cil.CloningController" implements="force:lightningQuickAction,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:appHostable"  access="global" >
+    
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="changeList" type="String"/>
+    <aura:attribute name="exceptn" type="boolean" default="false"/>
+    <aura:attribute name="msgerr" type="String"/>   
+    <aura:attribute name="wrecord" type="cil.WrapperClass"/>
+    <aura:attribute name="Erecord" type="cil.WrapperClass"/>   
+    <aura:attribute name="RELrecord" type="cil.SuperWrapper[]"/>
+    <aura:attribute name="checkedRelList" type="String"/>
+    <aura:attribute name="clones" type="boolean" default="false"/>
+    <aura:attribute name="editBoard" type="boolean" default="false"/>
+    <aura:attribute name="prompt" type="boolean" default="false"/>
+    <aura:attribute name="CloneButton" type="boolean" default="true"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="msg" type="boolean" default="true"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <div class="slds-page-header" role="banner" style="margin-left:5px;">  
+        
+        <div class="slds-media">
+            <div class="slds-media__figure">
+                
+                <span class="slds-icon_container  slds-icon-action-clone  ">
+                    <cil:svg class="slds-icon  slds-icon--large"  xlinkHref="/resource/SLDSv2/assets/icons/action-sprite/svg/symbols.svg#clone"/>
+                </span>                                        				
+            </div>
+            
+            <div class="slds-media__body">
+                <p class="slds-page-header__title slds-truncate slds-align-middle" title="{!v.wrecord.obj}">{!v.wrecord.obj}</p>
+                <p class="slds-text-body--small slds-page-header__info"> {!v.wrecord.record.Name}</p>
+                <p class="slds-text-body--small slds-page-header__info"> {!v.wrecord.record.CaseNumber}</p>
+            </div>
+        </div>       
+    </div>
+    
+    <div class="scrollable" style="padding:2px 10px 2px 10px;">
+        <div class="slds-spinner_container" style="{!(v.spinner==true)?'display:block':'display:none'}">
+            <div role="status" class="slds-spinner slds-spinner--large slds-spinner--brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>                
+        </div>
+        
+        <div style="{!(v.exceptn==true)?'display:block':'display:none'}"> 
+            &nbsp;
+            <output style="color:red;" class="slds-text-body--regular" value="{!v.msgerr}" />
+            &nbsp;
+        </div>
+        
+        <div style="margin-top:1%;border:solid lightgrey;border-width:2px 2px 2px 2px; padding:7px;">            
+            <h3 class="slds-section-title--divider">
+                <abbr class="slds-required" title="required">*</abbr> Number of Clones to create                     
+            </h3>    
+            
+            <div class="slds-form-element__control">
+                <ui:inputText aura:id="text-input-01" class="slds-input" placeholder="(Integer)" change="{!c.onNumChange}"/>
+            </div>            
+            <ui:button class="leftfourty" label="Next" press="{!c.onClickNext}"/>
+        </div>	
+        
+        <div style="{!(v.clones==true)?'display:block':'display:none'}"> 
+            <br/>
+            <div style="border:solid lightgrey;border-width:2px 2px 2px 2px; padding:7px;">
+                <h3 class="slds-section-title--divider">Edit Rules</h3>                                       
+                <ui:button label="Edit" press="{!c.edit}"/>     
+            </div>
+        </div> 
+        
+        <aura:if isTrue="{!v.editBoard}">
+            <br/><br/>               
+            <div class="uiModal--medium uiModal forceModal open active qwerty " aria-hidden="false" style="display: block;z-index: 1;">
+                <div class="modal-glass fadein" tabindex="-1"  style="opacity: 0.9;"></div>
+                
+                <div class="slds-modal slds-fade-in-open"   aria-hidden="false" role="dialog" id="campignclone"  >
+                    
+                    
+                    <div class="slds-modal__container qwertyu" onclick="" >
+                        
+                        
+                        <div class="slds-modal__header" > 
+                            
+                            
+                            <h2 class="slds-text-heading--medium">{!v.wrecord.obj}</h2>                                                
+                        </div>                                        
+                        
+                        <div class="slds-modal__content slds-p-around--medium">						
+                            <div>					
+                                <div class="slds" aura:id="modalmain">                                                                         		                                
+                                    <div class="slds-scrollable--y" style="border:solid thin lightgrey;width:100%;border-radius:4px;height:350px;font-size: 14px" >           
+                                        <div style="padding:10px;">
+                                            <div  role="listbox" aura:id="changeIt" style="overflow: hidden;" >																								
+                                                <aura:iteration items="{!v.Erecord}" var="obj">        
+                                                    <div style="{!(obj.ApiNamee!='firstname')?'display:block':'display:none'}">
+                                                        <div style="{!(obj.Typee=='STRING' || obj.Typee=='TEXTAREA')?'display:block':'display:none'}">
+                                                            <ui:inputText label="{!obj.Fieldd}" labelClass="{!obj.ApiNamee}" value="{!obj.Valuee}" change="{!c.onBoardChange}"/>                                                 	
+                                                        </div>
+                                                        <div style="{!(obj.Typee=='BOOLEAN')?'display:block':'display:none'}">
+                                                            <ui:inputCheckbox label="{!obj.Fieldd}" labelClass="{!obj.ApiNamee}" value="{!obj.Valuee}" change="{!c.onBoardChange}"/>                                                 	
+                                                        </div> 
+                                                        <div style="{!(obj.Typee=='PICKLIST')?'display:block':'display:none'}">                                                                    
+                                                            <ui:inputSelect label="{!obj.Fieldd}" labelClass="{!obj.ApiNamee}"  value="{!obj.Valuee}" change="{!c.onBoardChange}">
+                                                                <aura:iteration items="{!obj.plist}" var="pls">                                                                              
+                                                                    <ui:inputSelectOption text="{!pls}" label="{!pls}"/>                                                                                                                                                            
+                                                                </aura:iteration>
+                                                            </ui:inputSelect>
+                                                        </div>
+                                                        
+                                                        <div style="{!(obj.Typee=='PHONE')?'display:block':'display:none'}">                                                                        
+                                                            <ui:inputPhone label="{!obj.Fieldd}" labelClass="{!obj.ApiNamee}" value="{!obj.Valuee}" change="{!c.onBoardChange}"/>                                                 	
+                                                        </div>
+                                                        
+                                                        <div style="{!(obj.Typee=='REFERENCE')?'display:block':'display:none'}">                                                                    
+                                                            <ui:inputSelect label="{!obj.Fieldd}" labelClass="{!obj.ApiNamee}" value="{!obj.Valuee}" change="{!c.onBoardChange}">
+                                                                <aura:iteration items="{!obj.lnwc}" var="pls">                                                                              
+                                                                    <ui:inputSelectOption text="{!pls.oid}" label="{!pls.oname}"/>                                                                                                                                                            
+                                                                </aura:iteration>
+                                                            </ui:inputSelect>
+                                                        </div>
+                                                        <div style="{!(obj.Typee=='URL')?'display:block':'display:none'}">                                                                        
+                                                            <ui:inputURL label="{!obj.Fieldd}" labelClass="{!obj.ApiNamee}" value="{!obj.Valuee}" change="{!c.onBoardChange}"/>                                                 	
+                                                        </div>
+                                                    </div>
+                                                    <br/>                                                
+                                                </aura:iteration> 
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="slds-modal__footer">
+                            <ui:button label="Save" aura:id="savebtncamp" press="{!c.savetheBoard}" />
+                            <ui:button label="Cancel" aura:id="cancelbtncamp" press="{!c.closetheBoard}" />
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="slds-backdrop slds-backdrop--open"></div>
+                
+            </div>
+            
+        </aura:if>
+        
+        <div style="{!(v.clones==true)?'display:block':'display:none'}">
+            <br/>
+            <div style="border:solid lightgrey;border-width:2px 2px 2px 2px; padding:7px;">
+                <h3 class="slds-section-title--divider">Related Lists</h3>  <br/> 
+                <div class="slds-scrollable--y " style="height:90px;">     
+                    <div align="center" style="{!(v.msg==true)?'display:block':'display:none'}">
+                        <div style="color:lightgrey;">There are no related lists to display.</div>
+                    </div>
+                    <table class="slds-table slds-table--bordered">                            
+                        <tbody>
+                            <aura:iteration aura:id="cbox" items="{!v.RELrecord}" var="obj">                    
+                                <tr class="slds-hint-parent">                        
+                                    <td class="slds-cell-shrink" data-label="Select Row">
+                                        <label class="slds-checkbox">                                
+                                            <ui:inputCheckbox aura:id="cbox1" text="{!obj.relName+' ('+obj.ids.length+')'}" click="{!c.selectrecords}" class="line" >                                    
+                                            </ui:inputCheckbox>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-assistive-text">Select Row</span>
+                                        </label>
+                                    </td>                        
+                                    <td class="slds-truncate" scope="row" data-label="Related List">{!obj.relName} ({!obj.ids.length})</td>                        
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div align="center">
+            <ui:button disabled="{!v.CloneButton}" label="Clone" press="{!c.clone}" class="cb"/>
+            <br/><br/><br/>
+        </div>
+        <div style="{!(v.prompt==true)?'display:block':'display:none'}">
+            <div role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal--prompt">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__header slds-theme--success slds-theme--alert-texture">                      
+                        <h2 class="slds-text-heading--medium" id="prompt-heading-id">Record(s) cloned successfully.</h2>
+                    </div>                    
+                    <div class="slds-modal__footer slds-theme--default">
+                        <ui:button class="slds-button slds-button--neutral" label="Ok" press="{!c.afterCreate}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </div>
+    </div>
+    
+</aura:component>

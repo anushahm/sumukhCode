@@ -1,0 +1,22 @@
+<apex:page controller="MyClass">
+    <apex:pageBlock title="records details">
+    
+    	<apex:pageBlockTable value="{!wrapper}" var="m"  columnsWidth="300px,300px">
+            <apex:column value="{!m.accr.name}" headerValue="Account Name"/>
+		<apex:column value="{!m.accr.phone}" headerValue="phone"/>
+         </apex:pageBlockTable>
+        <apex:pageBlockTable value="{!wrapper}" var="t"  columnsWidth="300px,300px">
+            <apex:column value="{!t.conr.name}" headerValue="contact Name"/>
+			<apex:column value="{!t.conr.AccountId}" headerValue="AccountId"/>
+         </apex:pageBlockTable>
+        <apex:pageBlockTable value="{!wrapper}" var="m" columnsWidth="300px,300px">
+            <apex:column value="{!m.op.name}" headervalue="Ooportunityname"/>
+               <apex:column value="{!m.op.Amount}" headervalue="Amount"/>
+         </apex:pageBlockTable>
+        <apex:pageBlockTable value="{!wrapper}" var="m" columnsWidth="300px,300px">
+            <apex:column value="{!m.led.name}" headerValue="Account Name"/>
+			<apex:column value="{!m.led.phone}" headerValue="phone"/>
+         </apex:pageBlockTable>
+    
+        </apex:pageBlock>
+</apex:page>

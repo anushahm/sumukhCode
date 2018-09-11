@@ -1,0 +1,11 @@
+<apex:page standardController="Account"  recordSetVar="account">
+    <apex:form >
+    <apex:pageblock >
+        	 <apex:pageBlockTable rows="4" value="{!account}" var="a" first="0">
+                <apex:column value="{!a.Name}"/>
+                <apex:column value="{!a.AccountNumber}"/>
+                <apex:column value="{!a.Phone}"/>
+  		</apex:pageBlockTable>
+         </apex:pageblock>
+        </apex:form>
+</apex:page>
