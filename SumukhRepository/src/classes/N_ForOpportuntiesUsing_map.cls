@@ -73,7 +73,7 @@ public class N_ForOpportuntiesUsing_map{
         }
         
         
-        for(string usernames:UserToOpp.keyset()){
+        /*for(string usernames:UserToOpp.keyset()){
             //for(String Oppname : UserToOpp.get(usernames).keyset()){
             
             string bodyMessage='';
@@ -92,10 +92,6 @@ public class N_ForOpportuntiesUsing_map{
             
             Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail});
         
-<<<<<<< HEAD
         }*/  
-=======
-        }  
->>>>>>> refs/remotes/sumukh/master
     }
 }
