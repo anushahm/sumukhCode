@@ -70,6 +70,7 @@ public class N_ForOpportuntiesUsing_map{
             bodyMessage+='</table> </br>Thanks</body></html>';
             mail.setHtmlBody(bodyMessage);
             Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail});
+           system.debug('---My New Test Code---');
         }
         
         
